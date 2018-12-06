@@ -1,3 +1,7 @@
+* {
+  transition: all 0.4s ease; 
+}
+
 .App {
   text-align: center;
   width: 900px;
@@ -11,12 +15,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #333333;
+  /* background-color: #333333; */
+  background-position-y: 0%;
+  background-image: linear-gradient(to bottom, #333333 50%, #CC4444 50%);
+  background-size: 100% 200%;
   font-size: 4em;
   letter-spacing: 15px;
   color: #ffffff;
   border-radius: 10px;
 }
+
+
+
+
 
 .letterList {
   width: 100%;
