@@ -9,6 +9,12 @@
   font-family: Helvetica, Arial, sans-serif
 }
 
+.title {
+  font-size: 1.5em;
+  letter-spacing: 10px;
+  margin: 20px;
+}
+
 .word {
   width: 100%;
   height: 300px;
@@ -23,6 +29,7 @@
   letter-spacing: 15px;
   color: #ffffff;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .smallMsg {

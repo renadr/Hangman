@@ -85,12 +85,13 @@ class App extends Component {
     const {word} = this.state
     return (
       <div className="App">
+        <div className="title">Le jeu du pendu</div>
         <div className="word" style={{backgroundPositionY:loosePercentage}}>
-          {!gameOver ?
+          {!gameOver && !won ?
           this.computeDisplay(this.state.word, this.state.usedLetters)
           :
           <div>
-            <div>Perdu !</div>
+            <div>{gameOver ? "Perdu !" : "Gagné !"}</div>
             <div className="smallMsg">Le mot à trouver était : {word} </div>
           </div>
           }
