@@ -41,7 +41,7 @@ class App extends Component {
     if(!this.state.usedLetters.has(letter)) {
       if(!this.state.word.split('').includes(letter)) {
         this.setState({
-          badTry: this.state.badTry+1
+          badTry: this.state.badTry+1,
         })
       }
       this.setState({
@@ -82,10 +82,18 @@ class App extends Component {
     const won = this.DoIWin()
     const loosePercentage = this.loosePercentage()+'%'
     const gameOver = this.gameIsOver(this.loosePercentage())
+    const {word} = this.state
     return (
       <div className="App">
         <div className="word" style={{backgroundPositionY:loosePercentage}}>
-          {this.computeDisplay(this.state.word, this.state.usedLetters)}
+          {!gameOver ?
+          this.computeDisplay(this.state.word, this.state.usedLetters)
+          :
+          <div>
+            <div>Perdu !</div>
+            <div className="smallMsg">Le mot à trouver était : {word} </div>
+          </div>
+          }
         </div>
         {won || gameOver ?
           <div className="newGameBtn" onClick={this.restart}>Nouvelle partie</div>
