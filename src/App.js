@@ -38,16 +38,16 @@ class App extends Component {
   }
 
   handleLetterClick(letter) {
-    if(!this.state.usedLetters.has(letter)) {
-      if(!this.state.word.split('').includes(letter)) {
+    if (!this.state.usedLetters.has(letter)) {
+      if (!this.state.word.split('').includes(letter)) {
         this.setState({
-          badTry: this.state.badTry+1,
+          badTry: this.state.badTry + 1,
         })
       }
       this.setState({
         usedLetters: this.state.usedLetters.add(letter),
         actualLetter: letter,
-        try: this.state.try+1
+        try: this.state.try + 1
       })
     }
   }
@@ -66,11 +66,10 @@ class App extends Component {
       try: 0,
       badTry: 0
     })
-    console.log(this.state.word)
   }
 
   loosePercentage() {
-    return (this.state.badTry * 100)/nbChances
+    return !this.DoIWin() ? (this.state.badTry * 100) / nbChances : 0
   }
 
   gameIsOver(loosePercentage) {
@@ -80,20 +79,20 @@ class App extends Component {
   render() {
     const letters = this.state.letters
     const won = this.DoIWin()
-    const loosePercentage = this.loosePercentage()+'%'
+    const loosePercentage = this.loosePercentage() + '%'
     const gameOver = this.gameIsOver(this.loosePercentage())
-    const {word} = this.state
+    const { word, badTry } = this.state
     return (
       <div className="App">
         <div className="title">Le jeu du pendu</div>
-        <div className="word" style={{backgroundPositionY:loosePercentage}}>
+        <div className="word" style={{ backgroundPositionY: loosePercentage }}>
           {!gameOver && !won ?
-          this.computeDisplay(this.state.word, this.state.usedLetters)
-          :
-          <div>
-            <div>{gameOver ? "Perdu !" : "Gagné !"}</div>
-            <div className="smallMsg">Le mot à trouver était : {word} </div>
-          </div>
+            this.computeDisplay(this.state.word, this.state.usedLetters)
+            :
+            <div>
+              <div>{gameOver ? "Perdu !" : "Gagné !"}</div>
+              <div className="smallMsg">Le mot à trouver était : {word} </div>
+            </div>
           }
         </div>
         {won || gameOver ?
@@ -104,6 +103,9 @@ class App extends Component {
               <div className={`letter ${this.getFeedbackforLetter(index)}`} key={index} onClick={() => this.handleLetterClick(letter)}>{letter}</div>
             )}
           </div>
+        }
+        {(badTry > 0 && !gameOver && !won ) &&
+          <div className="failBox">Echecs : {badTry}/{nbChances}</div>
         }
       </div>
     );
