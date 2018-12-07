@@ -59,11 +59,12 @@ class App extends Component {
   }
 
   restart = () => {
-    console.log('aha')
     this.setState({
       letters: this.createLetters(),
       word: this.pickRandomWordFromTheArray(),
       usedLetters: new Set(),
+      try: 0,
+      badTry: 0
     })
     console.log(this.state.word)
   }
@@ -72,17 +73,22 @@ class App extends Component {
     return (this.state.badTry * 100)/nbChances
   }
 
+  gameIsOver(loosePercentage) {
+    return loosePercentage === 100
+  }
+
   render() {
     const letters = this.state.letters
     const won = this.DoIWin()
     const loosePercentage = this.loosePercentage()+'%'
+    const gameOver = this.gameIsOver(this.loosePercentage())
     return (
       <div className="App">
         <div className="word" style={{backgroundPositionY:loosePercentage}}>
           {this.computeDisplay(this.state.word, this.state.usedLetters)}
         </div>
-        {won ?
-          <div className="newGameBtn" onClick={this.restart}>Nouvelle partie}</div>
+        {won || gameOver ?
+          <div className="newGameBtn" onClick={this.restart}>Nouvelle partie</div>
           :
           <div className="letterList">
             {letters.map((letter, index) =>
